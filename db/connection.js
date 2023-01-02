@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const conn = mongoose
   .connect(process.env.ATLAS_URI)
   .then((db) => {
-    console.log("database connected");
+    console.log("Database Connected DADU");
     return db;
   })
   .catch((err) => {
-    console.log("connection error");
+    console.log("Connection Error");
   });
 
 module.exports = conn;

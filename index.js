@@ -1,4 +1,5 @@
 const express = require("express");
+
 const cors = require("cors");
 const app = express();
 
@@ -10,26 +11,28 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 
-// mongodb connection
-const con = require("./db/connection");
-
-// use routes
+// using routes
 app.use(require("./routes/route"));
+
+// mongodb connection
+const con = require("./db/connection.js");
 
 con
   .then((db) => {
     if (!db) return process.exit(1);
 
-    //   listen to the http server
+    // listen to the http server
     app.listen(port, () => {
-      console.log(`Money calculator is running server ${port}`);
+      console.log(`Server is running on port: http://localhost:${port}`);
     });
+
     app.on("error", (err) =>
-      console.log(`failed to connect with http server ${err}`)
+      console.log(`Failed To Connect with HTTP Server : ${err}`)
     );
+    // error in mondb connection
   })
-  .catch((err) => {
-    console.log(`failed to connect mongodb ${err}`);
+  .catch((error) => {
+    console.log(`Connection Failed...! ${error}`);
   });
 
 // server run ...........
